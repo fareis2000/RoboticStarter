@@ -1,0 +1,23 @@
+int amarelo = 2
+int vermelho = 3
+int verde = 4
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(amarelo, OUTPUT);
+  pinMode(vermelho, OUTPUT);
+  pinMode(verde, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  digitalWrite(verde, HIGH);
+  delay(20000);
+  digitalWrite(verde, LOW);
+  digitalWrite(vermelho, HIGH);
+  delay(30000);
+  digitalWrite(verde, LOW);
+  digitalWrite(amarelo, HIGH);
+  delay(5000);
+  digitalWrite(verde, LOW);
+}
