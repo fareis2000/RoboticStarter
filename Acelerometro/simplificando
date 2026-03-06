@@ -1,0 +1,62 @@
+#include <MPU6050_tockn.h>
+#include <Wire.h>
+
+#define ledX 12
+#define ledY 11
+#define ledZ 10
+
+MPU6050 mpu6050(Wire);
+
+float x, y, z;
+
+void setup() {
+
+  Serial.begin(9600);
+  Wire.begin();
+
+  mpu6050.begin();
+  mpu6050.calcGyroOffsets(true);
+
+  pinMode(ledX, OUTPUT);
+  pinMode(ledY, OUTPUT);
+  pinMode(ledZ, OUTPUT);
+}
+
+void loop() {
+
+  mpu6050.update();
+
+  x = mpu6050.getAngleX();
+  y = mpu6050.getAngleY();
+  z = mpu6050.getAngleZ();
+
+  Serial.print("X: ");
+  Serial.print(x);
+  Serial.print(" Y: ");
+  Serial.print(y);
+  Serial.print(" Z: ");
+  Serial.println(z);
+
+  // eixo X
+  if (abs(x) > 30) {
+    digitalWrite(ledX, HIGH);
+  } else {
+    digitalWrite(ledX, LOW);
+  }
+
+  // eixo Y
+  if (abs(y) > 10) {
+    digitalWrite(ledY, HIGH);
+  } else {
+    digitalWrite(ledY, LOW);
+  }
+
+  // eixo Z
+  if (abs(z) > 40) {
+    digitalWrite(ledZ, HIGH);
+  } else {
+    digitalWrite(ledZ, LOW);
+  }
+
+  delay(50);
+}
