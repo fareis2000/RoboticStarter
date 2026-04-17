@@ -1,0 +1,32 @@
+#include <Servo.h>
+
+Servo meuServo;
+
+int posPotPin = A0;
+int velPotPin = A1;
+
+int posAtual = 0;
+
+void setup() {
+  meuServo.attach(6);
+}
+
+void loop() {
+  int posVal = analogRead(posPotPin);
+  int velVal = analogRead(velPotPin);
+
+  int posAlvo = map(posVal, 0, 1023, 0, 180);
+
+  // controla velocidade (delay)
+  int velocidade = map(velVal, 0, 1023, 5, 30);
+
+  // movimento suave
+  if (posAtual < posAlvo) {
+    posAtual++;
+  } else if (posAtual > posAlvo) {
+    posAtual--;
+  }
+
+  meuServo.write(posAtual);
+  delay(velocidade);
+}
