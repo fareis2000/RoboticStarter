@@ -20,11 +20,12 @@ void loop() {
   // controla velocidade (delay)
   int velocidade = map(velVal, 0, 1023, 5, 30);
 
-  // movimento suave
-  if (posAtual < posAlvo) {
-    posAtual++;
-  } else if (posAtual > posAlvo) {
-    posAtual--;
+  if (abs(posAlvo - posAtual) > 1) {
+    if (posAtual < posAlvo) {
+      posAtual++;
+    } else {
+      posAtual--;
+    }
   }
 
   meuServo.write(posAtual);
